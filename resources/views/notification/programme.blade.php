@@ -2,6 +2,197 @@
 @section('content')
 
             <form class="mb-9 {{$formData['type']==='show'?'d-none':''}}" id="addNewProgramDiv" action="{{$formData['url']}}" method="{{$formData['method']}}" enctype="multipart/form-data">
+        @csrf
+        <div class="row g-3 flex-between-end mb-5">
+            <div class="col-auto">
+                <h2 class="mb-2">Add New Programme</h2>
+            </div>
+            <div class="col-auto">
+                <button class="btn btn-phoenix-secondary me-2 mb-2 mb-sm-0" type="button"
+                        onclick="document.getElementById('addNewProgramDiv').classList.add('d-none')">Discard
+                </button>
+            </div>
+        </div>
+
+        <div class="row g-5">
+            <div class="col-12 col-xl-8">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h4 class="mb-3">Programme Title <span class="text-danger">*</span></h4>
+                        <input class="form-control mb-5" type="text" name="programme_title"
+                               value="{{$programme->programme_title ?? old('programme_title')}}"
+                               placeholder="Programme title...">
+                        <div class="mb-6">
+                            <h4 class="mb-3"> Programme Description <span class="text-danger">*</span></h4>
+                            <textarea class="form-control mb-5" rows="5" name="programme_description"
+                                      id="mce_0" placeholder="Programme description...">
+                                        {{$programme->programme_description ?? old('programme_description')}}
+                                    </textarea>
+                        </div>
+                        <div class="mb-6">
+                            <h4 class="mb-3"> Programme Artists</h4>
+                            <div id="mainContainerOfRows">
+{{--                                make copy of this row--}}
+                                <div class="row gx-3 position-relative">
+                                    <div class="col-12 col-sm-6 col-xl-4">
+                                        <div class="mb-4">
+                                            <h5 class="mb-2 text-body-highlight">Name <span class="text-danger">*</span>
+                                            </h5>
+                                            <input class="form-control mb-xl-3" name="name[]" type="text"
+                                                   value="{{$programme->name ?? old('name')}}"
+                                                   placeholder="Name...">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-6 col-xl-4">
+                                        <div class="mb-4">
+                                            <h5 class="mb-2 text-body-highlight">Description <span
+                                                    class="text-danger">*</span></h5>
+                                            <input class="form-control mb-xl-3" name="description[]" type="text"
+                                                   value="{{$programme->description ?? old('description')}}"
+                                                   placeholder="Designation...">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-6 col-xl-4">
+                                        <div class="mb-4">
+                                            <h5 class="mb-2 text-body-highlight">Image <span class="text-danger">*</span>
+                                            </h5>
+                                            <input class="form-control mb-xl-3" name="image[]" type="file">
+                                        </div>
+                                    </div>
+                                    <div class="position-absolute top-0 d-flex justify-content-end" style="right: 0px">
+                                        <button id="removeRow" type="button" class="badge badge-phoenix fs-10 badge-phoenix-danger">
+                                            <span class="badge-label">
+                                                  <i class="fa fa-xmark"></i>
+                                            </span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-6 col-xl-12 d-flex justify-content-end">
+                                <button id="addMoreButton" class="btn btn-success mb-2 mb-sm-0" type="button">
+                                    Add More....
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-xl-4">
+                <div class="row g-2">
+                    <div class="col-12 col-xl-12">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <div class="row gx-3">
+                                    <div class="col-12 col-sm-6 col-xl-12">
+                                        <div class="mb-4">
+                                            <h5 class="mb-2 text-body-highlight">Programme Location <span
+                                                    class="text-danger">*</span></h5>
+                                            <input class="form-control mb-xl-3" name="programme_location" type="text"
+                                                   value="{{$programme->programme_location ?? old('programme_location')}}"
+                                                   placeholder="Programme Location...">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-6 col-xl-12">
+                                        <div class="mb-4">
+                                            <h5 class="mb-2 text-body-highlight">Programme Date <span
+                                                    class="text-danger">*</span></h5>
+                                            <input class="form-control mb-xl-3" name="programme_date" type="date"
+                                                   value="{{ old('programme_date', isset($programme) ? \Carbon\Carbon::parse($programme->programme_date)->format('Y-m-d') : null) }}"
+                                                   placeholder="Programme Date...">
+                                        </div>
+
+                                    </div>
+                                    <div class="col-12 col-sm-6 col-xl-12">
+                                        <div class="mb-4">
+                                            <h5 class="mb-2 text-body-highlight">Programme Time <span
+                                                    class="text-danger">*</span></h5>
+                                            <input class="form-control mb-xl-3" name="programme_time" type="time"
+                                                   value="{{ old('programme_time', isset($programme) ? \Carbon\Carbon::parse($programme->programme_time)->format('H:i') : null) }}"
+                                                   placeholder="Programme Time...">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-6 col-xl-12">
+                                        <div class="mb-4">
+                                            <h5 class="mb-3">Programme Banner Image <span
+                                                    class="text-danger">{{$formData['type']==='show'?'*':''}}</span>
+                                            </h5>
+                                            <div class="mb-6">
+                                                <div class="form-control mb-1"
+                                                     style="height: 100px; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center">
+                                                    <button class="btn btn-link p-0" type="button">Browse from device
+                                                    </button>
+                                                    <img class="mt-3 me-2"
+                                                         src="{{asset('assets/images/image-icon.png')}}" width="40"
+                                                         alt="">
+                                                    <input id="imageInput" type="file" name="programme_image"
+                                                           style="height: 100%; width: 100%; position: absolute; top: 0px; left: 0px; opacity: 0"
+                                                           accept="image/png, image/gif, image/jpeg"/>
+                                                </div>
+                                                <div style="display: flex; gap: 10px">
+                                                    <img id="imageToDisplay"
+                                                         style="height: 50px; width: 50px; display: none" src="" alt="">
+                                                    @if($formData['type']==='edit')
+                                                        <img src="{{asset('storage/'.$programme->programme_image)}}"
+                                                             title="{{$programme->programme_title}}"
+                                                             alt="{{$programme->programme_title}}"
+                                                             style="height: 50px; width: 50px;">
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-6 col-xl-12">
+                                        <div class="mb-4">
+                                            <h5 class="mb-2 text-body-highlight">Programme Images </h5>
+                                        </div>
+                                        <div class="">
+                                            <div class="form-control mb-1"
+                                                 style="height: 100px; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center">
+                                                <button class="btn btn-link p-0" type="button">Browse from device
+                                                </button>
+                                                <img class="mt-3 me-2" src="{{asset('assets/images/image-icon.png')}}"
+                                                     width="40" alt="">
+                                                <input id="programmeImages" type="file" name="programme_images[]"
+                                                       style="height: 100%; width: 100%; position: absolute; top: 0px; left: 0px; opacity: 0"
+                                                       multiple accept="image/png, image/gif, image/jpeg"/>
+                                            </div>
+
+
+                                            <div style="display: flex; gap: 10px">
+                                                <div id="programImagesToDisplay"
+                                                     style="display: flex; gap: 10px; flex-wrap: wrap;"></div>
+                                                @if($formData['type']==='edit')
+                                                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                                                        @forelse($programme->programImages as $image)
+                                                            <img src="{{asset('storage/'.$image->programme_images)}}"
+                                                                 title="{{$programme->programme_title}}"
+                                                                 alt="{{$programme->programme_title}}"
+                                                                 style="height: 50px; width: 50px;">
+                                                        @empty
+                                                            <p>No images found</p>
+                                                        @endforelse
+                                                    </div>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-12 col-sm-6 col-xl-12 d-flex justify-content-end">
+                                        <button class="btn btn-primary mb-2 mb-sm-0" type="submit">
+                                            {{$formData['type']==='show'?'Create Programme':'Update Programme'}}
+                                        </button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
 
 
     <div class="mb-9">
