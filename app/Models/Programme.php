@@ -12,4 +12,14 @@ class Programme extends Model
             'programme_date' => 'date',
         ];
     }
+
+    public function programImages()
+    {
+        return $this->hasMany(ProgramImage::class);
+    }
+
+    public function programArtists()
+    {
+        return $this->hasMany(ProgramArtist::class);
+    }
 }

@@ -43,6 +43,8 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
         Route::get('programme-edit/{id}', [NotificationController::class, 'editProgramme'])->name('edit');
         Route::post('programme-update/{id}', [NotificationController::class, 'updateProgramme'])->name('update');
         Route::get('programme-delete/{id}', [NotificationController::class, 'deleteProgramme'])->name('delete');
+        Route::get('programme-images-delete/{id}', [NotificationController::class, 'programImageDelete'])->name('images-delete');
+        Route::get('programme-artist-delete/{id}', [NotificationController::class, 'programArtistDelete'])->name('artist-delete');
     });
 
     Route::name('notification.')->group(function () {
@@ -89,12 +91,12 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
 
     Route::get('/create-page/{page?}', function (Page $page = null) {
         $galleries = [];
-      
+
     if ($page) {
         $groupedMedia = $page->getMedia('gallery_images')->groupBy(function($media) {
             return $media->getCustomProperty('gallery_title');
         });
-    
+
         // Prepare the galleries array to be passed to the view
         $galleries = $groupedMedia->map(function ($gallery, $title) {
             return [
@@ -103,11 +105,11 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
                     return [
                         'src' => $media->getUrl(),
                         'caption' => $media->getCustomProperty('caption'),
-                        'id' => $media->id 
+                        'id' => $media->id
                     ];
                 })->toArray(),
             ];
-        })->values()->toArray(); 
+        })->values()->toArray();
     }
 
     // Send the page and gallery data to the view
@@ -128,6 +130,11 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::get('/menu', function(){
         return view('backend.menu');
     })->name('create-menu');
+    Route::get('/programme/{id}', function($id){
+        $programme = \App\Models\Programme::find($id);
+
+        return view('frontend.programDetail')->with('programme', $programme);
+    })->name('view-programme');
 
 
 

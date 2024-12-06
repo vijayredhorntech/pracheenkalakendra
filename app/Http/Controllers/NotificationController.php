@@ -8,6 +8,8 @@ use App\Http\Requests\ProgrammeRequest;
 use App\Models\Download;
 use App\Models\Member;
 use App\Models\Notification;
+use App\Models\ProgramArtist;
+use App\Models\ProgramImage;
 use App\Models\Programme;
 use Illuminate\Http\Request;
 
@@ -28,8 +30,10 @@ class NotificationController extends Controller
         return view('notification.programme')->with('formData', $formData)->with('programmes', $programmes);
     }
     public function createProgramme(ProgrammeRequest $request){
+
+
             $request->validate([
-                'programme_image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'programme_image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048|required',
             ]);
 
             $programme = new Programme();
@@ -42,10 +46,36 @@ class NotificationController extends Controller
                  $image = $request->file('programme_image');
                   $programme->programme_image = str_replace('public/', '', $image->store('public'));
                 }
-            $programme->save();
+            if ($programme->save())
+            {
+                if ($request->hasFile('programme_images')) {
+                    foreach ($request->file('programme_images') as $image) {
+                        $programmeImage = new ProgramImage();
+                        $programmeImage->programme_id = $programme->id;
+                        $programmeImage->programme_images = str_replace('public/', '', $image->store('public'));
+                        $programmeImage->save();
+                    }
+                }
+
+                foreach ($request->input('name') as $index => $name) {
+                    $programmeArtist = new ProgramArtist();
+                    $programmeArtist->programme_id = $programme->id;
+                    $programmeArtist->name = $name;
+                    $programmeArtist->description = $request->input('description')[$index];
+                    if ($request->hasFile("image.$index")) {
+                        $image = $request->file('image')[$index];
+                        $programmeArtist->image = str_replace('public/', '', $image->store('public'));
+                    }
+                    $programmeArtist->save();
+                }
+
+            }
+
             $request->session()->flash('success', 'Programme created successfully');
             return redirect()->route('programme.show');
     }
+
+
     public function editProgramme($id){
         $formData=[
             'method'=>'POST',
@@ -56,6 +86,8 @@ class NotificationController extends Controller
         $programmes = Programme::all();
         return view('notification.programme')->with('formData', $formData)->with('programmes', $programmes)->with('programme', $programme);
     }
+
+
     public function updateProgramme(ProgrammeRequest $request, $id){
         $programme = Programme::find($id);
         $programme->programme_title = $request->programme_title;
@@ -67,7 +99,18 @@ class NotificationController extends Controller
             $image = $request->file('programme_image');
             $programme->programme_image = str_replace('public/', '', $image->store('public'));
         }
-        $programme->save();
+        if ($programme->save())
+        {
+            if ($request->hasFile('programme_images')) {
+                foreach ($request->file('programme_images') as $image) {
+                    $programmeImage = new ProgramImage();
+                    $programmeImage->programme_id = $programme->id;
+                    $programmeImage->programme_images = str_replace('public/', '', $image->store('public'));
+                    $programmeImage->save();
+                }
+            }
+        }
+
         $request->session()->flash('success', 'Programme updated successfully');
         return redirect()->route('programme.show');
     }
@@ -132,6 +175,21 @@ class NotificationController extends Controller
         $notification->delete();
         session()->flash('success', 'Notification Deleted successfully');
         return redirect()->route('notification.show');
+    }
+
+
+    public function programImageDelete($id){
+        $programImage = ProgramImage::find($id);
+        $programImage->delete();
+        session()->flash('success', 'Programme Image Deleted successfully');
+        return redirect()->back();
+    }
+
+    public function programArtistDelete($id){
+        $programArtist = ProgramArtist::find($id);
+        $programArtist->delete();
+        session()->flash('success', 'Programme Artist Deleted successfully');
+        return redirect()->back();
     }
 
  // downloads function here
