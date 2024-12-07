@@ -149,7 +149,6 @@
             font-size: 17px;
             border-bottom: 1px solid #dadada;
             padding: 0.5rem 1rem  !important;
-            background-color:  #b60001;
             color: white;
 
         }

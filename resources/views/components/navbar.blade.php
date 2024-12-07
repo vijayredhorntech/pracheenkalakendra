@@ -11,9 +11,9 @@
                         @foreach($item['submenu'] as $column)
                             <div class="dropdown-column">
                                 @if($column['title'] === NULL)
-                                    <h3 class="column-title" style="background-color: white">{{ $column['title'] }}</h3>
+                                    <h3 class="column-title" style="background-color: white">&nbsp</h3>
                                     @else
-                                       <h3 class="column-title">{{ $column['title'] }}</h3>
+                                       <h3 class="column-title" style=" background-color:  #b60001">{{ $column['title'] }}</h3>
                                     @endif
                                 @if(isset($column['submenu']) && count($column['submenu']) > 0)
                                     <ul class="submenu" style="padding: 0px; padding-left: 0.5rem; margin-left: 0px">
