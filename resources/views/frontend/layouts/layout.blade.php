@@ -112,7 +112,7 @@
         }
         .nav-link {
             color: #000;
-            font-weight: bold !important;
+            font-weight: 600 !important;
             text-decoration: none;
             padding: 0rem 1rem;
             border-right:  1px solid #dadada;

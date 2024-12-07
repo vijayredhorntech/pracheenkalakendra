@@ -11,6 +11,7 @@
                         @foreach($item['submenu'] as $column)
                             <div class="dropdown-column">
                                 @if($column['title'] === NULL)
+                                    <h3 class="column-title" style="background-color: white">{{ $column['title'] }}</h3>
                                     @else
                                        <h3 class="column-title">{{ $column['title'] }}</h3>
                                     @endif
