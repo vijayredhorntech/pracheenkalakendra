@@ -112,7 +112,7 @@
         }
         .nav-link {
             color: #000;
-            font-weight: 600 !important;
+            font-weight: 500 !important;
             text-decoration: none;
             padding: 0rem 1rem;
             border-right:  1px solid #dadada;
@@ -145,7 +145,7 @@
         }
 
         .column-title {
-            font-weight: 900 !important;
+            font-weight: 500 !important;
             font-size: 17px;
             border-bottom: 1px solid #dadada;
             padding: 0.5rem 1rem  !important;
