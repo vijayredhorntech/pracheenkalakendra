@@ -23,6 +23,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script src="https://kit.fontawesome.com/4e2c7ef5ef.js" crossorigin="anonymous"></script>
+
+
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"/>
+
     <title>Pracheen Kala Kendra</title>
     <style>
         ul.nav-menu {
@@ -274,6 +279,77 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/TweenMax.min.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $('.programmeCarousel').slick({
+            slidesToShow: 3, // Number of visible slides at a time
+            slidesToScroll: 1,
+            prevArrow: '<button class="slick-prev">Previous</button>',
+            nextArrow: '<button class="slick-next">Next</button>',
+            autoplay: true,
+            autoplaySpeed: 2000,
+            responsive: [
+                {
+                    breakpoint: 768,
+                    settings: {
+                        slidesToShow: 2, // Adjust for smaller screens
+                        slidesToScroll: 1
+                    }
+                },
+                {
+                    breakpoint: 500,
+                    settings: {
+                        slidesToShow: 1, // Adjust for smaller screens
+                        slidesToScroll: 1
+                    }
+                }
+            ]
+        });
+    });
+    $(document).ready(function(){
+        $('.statsCarousel').slick({
+            slidesToShow: 5, // Number of visible slides at a time
+            slidesToScroll: 1,
+            prevArrow: '<button class="slick-prev">Previous</button>',
+            nextArrow: '<button class="slick-next">Next</button>',
+            autoplay: true,
+            autoplaySpeed: 2000,
+            responsive: [
+                {
+                    breakpoint: 1200,
+                    settings: {
+                        slidesToShow: 4, // Adjust for smaller screens
+                        slidesToScroll: 1
+                    }
+                },
+                {
+                    breakpoint: 991,
+                    settings: {
+                        slidesToShow: 3, // Adjust for smaller screens
+                        slidesToScroll: 1
+                    }
+                },
+                {
+                    breakpoint: 768,
+                    settings: {
+                        slidesToShow: 2, // Adjust for smaller screens
+                        slidesToScroll: 1
+                    }
+                },
+                {
+                    breakpoint: 450,
+                    settings: {
+                        slidesToShow: 1, // Adjust for smaller screens
+                        slidesToScroll: 1
+                    }
+                }
+            ]
+        });
+    });
+</script>
 <script>
     $('#audio-control').click(function(){
         if( $("#myVideo").prop('muted') ) {

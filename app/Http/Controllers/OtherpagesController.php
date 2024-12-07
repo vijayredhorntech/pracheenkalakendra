@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\MemberRequest;
 use App\Models\BannerStats;
 use App\Models\Contact;
+use App\Models\Enquiry;
 use App\Models\Member;
 use App\Models\SocialLink;
 use Illuminate\Http\Request;
@@ -218,30 +219,113 @@ class OtherpagesController extends Controller
         return redirect()->route('bannerStats.show');
     }
     public function deletebannerStats($id){
-        $activeBannerStats = BannerStats::where('status', 1)->get();
-        if (count($activeBannerStats) <=6) {
-            session()->flash('error', 'Minimum 6 banner stats should be active');
-            return redirect()->route('bannerStats.show');
-        } else {
-            $bannerStats = BannerStats::find($id);
-            $bannerStats->delete();
-            session()->flash('success', 'Banner Stats Deleted successfully');
-            return redirect()->route('bannerStats.show');
-        }
+        $bannerStats = BannerStats::find($id);
+        $bannerStats->delete();
+        session()->flash('success', 'Banner Stats Deleted successfully');
+        return redirect()->route('bannerStats.show');
+
     }
     public function changeStatus($id)
     {
         $targetBanner = BannerStats::findOrFail($id);
         $activeBannerStats = BannerStats::where('status', 1)->get();
-        if (count($activeBannerStats) > 6 && $targetBanner->status == 0) {
-            session()->flash('error', 'Maximum 6 banner stats can be active');
-            return redirect()->route('bannerStats.show');
-        }
         $targetBanner->status = !$targetBanner->status;
         $targetBanner->save();
 
         session()->flash('success', 'Banner status changed successfully');
         return redirect()->route('bannerStats.show');
+    }
+
+    //enquiry function here
+    public function showEnquiry( Request $request, $type = 'enquiry' , $status='all')
+    {
+        $changeStatus = NULL;
+        $status = $request->status;
+
+        if ($status === 'all' || $status === NULL) {
+            $enquiryData = Enquiry::where('type', $type)
+                ->orderBy('created_at', 'desc')
+                ->get();
+        } else {
+            $enquiryData = Enquiry::where('type', $type)->where('status', $status)
+                ->where('status', $status)
+                ->orderBy('created_at', 'desc')
+                ->get();
+        }
+
+        return view('contact.enquiry')->with('enquiryData', $enquiryData)->with('type', $type)->with('changeStatus', $changeStatus)->with ('status', $status);
+    }
+    public function createEnquiry(Request $request, $type){
+       if ($type ==='subscription') {
+            $request->validate([
+                'email' => 'required|email',
+            ]);
+
+        } else {
+            $request->validate([
+                'name' => 'required',
+                'email' => 'required|email',
+                'mobile' => 'required',
+                'subject' => 'required',
+            ]);
+        }
+        $email = $request->email;
+        $enquiry = Enquiry::where('email', $email)->first();
+        if ($enquiry) {
+            if ($type === 'subscription') {
+                $request->session()->flash('error', 'You have been subscribed already');
+            } else {
+                if ($enquiry->status === 'pending') {
+                    $request->session()->flash('error', 'You have a pending enquiry');
+                }
+                else{
+                    $enquiry = new Enquiry();
+                    $enquiry->name = $request->name;
+                    $enquiry->email = $request->email;
+                    $enquiry->mobile = $request->mobile;
+                    $enquiry->subject = $request->subject;
+                    $enquiry->type = $type;
+                    $enquiry->save();
+                    $request->session()->flash('success', 'Enquiry created successfully');
+                }
+            }
+            return redirect()->route('index');
+        }
+
+        $enquiry = new Enquiry();
+        $enquiry->name = $request->name;
+        $enquiry->email = $request->email;
+        $enquiry->mobile = $request->mobile;
+        $enquiry->subject = $request->subject;
+        $enquiry->type = $type;
+        $enquiry->save();
+        if ($type === 'subscription') {
+            $request->session()->flash('success', 'Subscription created successfully');
+        } else {
+            $request->session()->flash('success', 'Enquiry created successfully');
+        }
+
+        return redirect()->route('index');
+    }
+
+    public function changeEnquiryStatus($id){
+        $changeStatus = Enquiry::find($id);
+        return view('contact.enquiry')->with('changeStatus', $changeStatus);
+    }
+
+    public function updateEnquiryStatus(Request $request, $id){
+
+        $request->validate([
+            'status' => 'required',
+            'remark' => 'required',
+        ]);
+
+        $enquiry = Enquiry::find($id);
+        $enquiry->status = $request->status;
+        $enquiry->remark = $request->remark;
+        $enquiry->save();
+        $request->session()->flash('success', 'Enquiry status updated successfully');
+        return redirect()->route('enquiry.show', $enquiry->type);
     }
 
 }

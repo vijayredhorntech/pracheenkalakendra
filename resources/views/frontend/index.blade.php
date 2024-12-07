@@ -56,6 +56,15 @@
             animation-duration: 1.5s;
         }
 
+        .programmeImage
+        {
+            width: 100% !important;
+            padding-bottom: 0px !important;
+            height: 300px !important;
+            object-fit: cover !important;
+            border-radius: 10px !important;
+        }
+
         @keyframes fade {
             from {
                 opacity: .4
@@ -98,6 +107,49 @@
             border-bottom: 1px solid rgba(154, 41, 18, 0.47);
 
         }
+        .subscriptionFormDiv
+        {
+            width: 800px !important;
+            margin: 0px auto;
+            padding: 50px 10px
+        }
+
+        .subscriptionForm
+        {
+            display: flex ;
+        }
+        .subscriptionForm input {
+            border: 1px solid #d00304 !important;
+            color: #b60001 !important;
+            border-top-left-radius: 3px !important;
+            border-bottom-left-radius: 3px !important;
+            width: 600px !important;
+            padding: 10px 10px !important;
+        }
+        .subscriptionForm input::placeholder{
+            color: #b60001 !important;
+        }
+        .subscriptionForm input:focus{
+            outline: none;
+            border: 1px solid #7a0203;
+            transition: all ease-in 2s;
+        }
+        .subscriptionForm button{
+            border: 1px solid #d00304 !important;
+            color: white !important;
+            border-top-right-radius: 3px !important;
+            border-bottom-right-radius: 3px !important;
+            padding: 10px 10px !important;
+            background-color: #d00304 !important;
+            cursor: pointer !important;
+            transition: all ease-in 0.5s !important;
+        }
+        .subscriptionForm button:hover{
+            color: #d00304 !important;
+            background-color: white !important;
+            transition: all ease-in 0.5s !important;
+        }
+
 
         .eventsSection {
             align-items: center;
@@ -203,6 +255,12 @@
         }
 
         @media only screen and (max-width: 992px) {
+            .subscriptionFormDiv
+            {
+                width: max-content !important;
+                margin: 0px auto;
+                padding: 50px 10px
+            }
             .cardHeader h2 {
                 font-size: 20px;
             }
@@ -211,12 +269,49 @@
                 font-weight: 500;
                 font-size: 20px;
             }
+            .programmeImage
+            {
+                width: 100% !important;
+                height: 200px !important;
+            }
         }
 
+        @media only screen and (max-width: 768px) {
+            .programmeImage
+            {
+                width: 100% !important;
+                height: 250px !important;
+            }
+            .subscriptionForm
+            {
+                display: flex ;
+            }
+            .subscriptionForm input {
+                width: 300px;
+            }
+        }
+        @media only screen and (max-width: 474px) {
+            .programmeImage
+            {
+                width: 100% !important;
+                height: 200px !important;
+            }
+
+            .subscriptionForm
+            {
+                display: flex ;
+                flex-direction: column;
+                gap: 10px;
+            }
+            .subscriptionForm input {
+                width: 300px;
+            }
+        }
         @media only screen and (max-width: 762px) {
             .cardHeader h2 {
                 font-size: 25px;
             }
+
         }
 
         @media only screen and (max-width: 440px) {
@@ -358,20 +453,18 @@
             <span class="sr-only">Next</span>
         </a>
     </div>
-    <div class="row">
-        @forelse($bannerStats as $bannerStat)
-            <div class="col-lg-2 col-md-2 col-sm-4 col-6 px-2 py-3 d-flex justify-content-center flex-column align-items-center text-white"
-                 style="background-color: {{$loop->iteration%2 ===0?'#960102':'#7e0202'}}">
-                <span style="font-weight: 500; font-size: 17px">{{$bannerStat->title}}</span>
-                <p style="font-size: 13px">{{$bannerStat->description}}</p>
-            </div>
-        @empty
-            <div class="col-12 px-2 py-3 d-flex justify-content-center flex-column align-items-center text-white bg-primary">
-                <span style="font-weight: 500; font-size: 17px">No stats found</span>
-            </div>
-        @endforelse
-
-
+        <div class="statsCarousel">
+            @forelse($bannerStats as $bannerStat)
+                <div class=" px-2 py-3 d-flex justify-content-center flex-column align-items-center text-white"
+                     style="background-color: {{$loop->iteration%2 ===0?'#960102':'#7e0202'}}">
+                    <span style="font-weight: 500; font-size: 17px">{{$bannerStat->title}}</span>
+                    <p style="font-size: 13px">{{$bannerStat->description}}</p>
+                </div>
+            @empty
+                <div class="col-12 px-2 py-3 d-flex justify-content-center flex-column align-items-center text-white bg-primary">
+                    <span style="font-weight: 500; font-size: 17px">No stats found</span>
+                </div>
+            @endforelse
     </div>
 
     <marquee scrollamount="8">
@@ -388,19 +481,63 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="aboutus">
-                            <h3 class="cssanimation sequence leFadeInLeft">WELCOME TO PRACHEEN KALA KENDRA</h3>
+{{--                            <h3 class="cssanimation sequence leFadeInLeft">WELCOME TO PRACHEEN KALA KENDRA</h3>--}}
+                                    <div style="display: flex; justify-content: space-between; padding-bottom: 20px">
+                                        <h2 style="color: #b60001">WHAT'S ON</h2>
+
+                                        <a href="{{route('events')}}">
+                                            See All
+                                        </a>
+                                    </div>
+                                    <div class="programmeCarousel">
+                                        @forelse($programmes as $programme)
+                                            <div style="padding-right: 15px; border-radius: 10px; overflow: hidden">
+                                                <a href="{{route('view-programme',['id'=>$programme->id])}}">
+                                                    <img src="{{asset('storage/'.$programme->programme_image)}}" alt="Image 1" class="programmeImage">
+
+                                                </a>
+                                            </div>
+                                            @empty
+                                                <p>No programmes available.</p>
+                                        @endforelse
+                                    </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="background-color: #ececec">
+        <div class="subscriptionFormDiv">
+            <h2 style="color: #b60001; margin-top: 0px">Subscribe</h2>
+            <form action="{{route('enquiry.create',['type'=>'subscription'])}}" method="POST" class="subscriptionForm">
+                @csrf
+                <input type="email" name="email" placeholder="Enter you email....">
+                <button type="submit">SUBSCRIBE</button>
+            </form>
+            <p>
+                @if(session('success'))
+                    <span style="color: green">{{session('success')}}</span>
+                @endif
+                @if(session('error'))
+                    <span style="color: red">{{session('error')}}</span>
+                @endif
+            </p>
+        </div>
+    </div>
+
+    <div class="parallax">
+        <div class="about_us">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="aboutus" style="margin-top: 20px">
                             <h2>ABOUT US</h2>
                             <img src="{{asset('assets/frontend/img/dvde.png')}}">
-                            <!--<h3 class="h3" data-text="WELCOME TO PRACHEEN KALA KENDRA">WELCOME TO PRACHEEN KALA KENDRA</h3>-->
 
                         </div>
                     </div>
-                    <!--<span>box animate fadeInLeft three</span>-->
-                    <!--<div class="col-md-5">-->
-                    <!--  <div class="kendra_pic box animate fadeInLeft three ">-->
-                    <!--    <img src="img/kala.png">-->
-                    <!--  </div>-->
-                    <!--</div>-->
                     <div class="col-md-12">
                         <div class="kendra_text ">
                             <p data-animate-in="up" align="justify">Established in 1956, Pracheen Kala Kendra is one of
@@ -542,6 +679,10 @@
 
         </div>
     </div>
+
+
+
+
 
 
     <div class="progame_section position-relative " style="padding: 0px">

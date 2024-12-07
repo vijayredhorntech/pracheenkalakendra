@@ -98,6 +98,13 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
         Route::get('contact-delete/{id}', [OtherpagesController::class, 'deleteContact'])->name('delete');
     });
 
+    Route::name('enquiry.')->group(function () {
+        Route::get('enquiry-show/{type?}/{status?}', [OtherpagesController::class, 'showEnquiry'])->name('show');
+        Route::post('enquiry-create/{type}', [OtherpagesController::class, 'createEnquiry'])->name('create');
+        Route::get('enquiry-status-change/{id}', [OtherpagesController::class, 'changeEnquiryStatus'])->name('change-enquiry-status');
+        Route::post('enquiry-status-update/{id}', [OtherpagesController::class, 'updateEnquiryStatus'])->name('enquiry-status-update');
+    });
+
 
     Route::get('/create-page/{page?}', function (Page $page = null) {
         $galleries = [];

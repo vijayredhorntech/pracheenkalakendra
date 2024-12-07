@@ -160,6 +160,35 @@
                         </a>
                     </div>
                 </li>
+
+                <li class="nav-item">
+                    <p class="navbar-vertical-label">SUBSCRIPTION & ENQUIRY</p>
+                    <hr class="navbar-vertical-line"/>
+                    <div class="nav-item-wrapper">
+                        <a aria-expanded="false" class="nav-link label-1 {{Route::currentRouteName()==='enquiry.show'?'active':''}}" data-bs-toggle="" href="{{route('enquiry.show',['type'=>'enquiry'])}}" role="button">
+                            <div class="d-flex align-items-center">
+                                <span class="nav-link-icon">
+                                    <i class="fa fa-question"></i>
+                                </span>
+                                <span class="nav-link-text-wrapper">
+                                    <span class="nav-link-text">Enquiry</span>
+                                </span>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="nav-item-wrapper">
+                        <a aria-expanded="false" class="nav-link label-1 {{Route::currentRouteName()==='enquiry.show'?'active':''}}" data-bs-toggle="" href="{{route('enquiry.show',['type'=>'subscription'])}}" role="button">
+                            <div class="d-flex align-items-center">
+                                <span class="nav-link-icon">
+                                    <i class="fa fa-plus"></i>
+                                </span>
+                                <span class="nav-link-text-wrapper">
+                                    <span class="nav-link-text">Subscription</span>
+                                </span>
+                            </div>
+                        </a>
+                    </div>
+                </li>
                 <li class="nav-item">
                     <p class="navbar-vertical-label">LOG OUT</p>
                     <hr class="navbar-vertical-line"/>

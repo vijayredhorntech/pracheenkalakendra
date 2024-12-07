@@ -19,7 +19,7 @@
 
                         <div class="page-title-heading">
 
-                            <h1 class="title">Current/ Forthcoming Events</h1>
+                            <h1 class="title">Current/ Forthcoming Programmes</h1>
 
                         </div><!-- /.page-title-captions -->
 
@@ -33,7 +33,7 @@
 
                             <span class="cmt-bread-sep"><i class="fa fa-angle-double-right" aria-hidden="true"></i></span>
 
-                            <span><span>Current/ Forthcoming Events</span></span>
+                            <span><span>Current/ Forthcoming Programme</span></span>
 
                         </div>
 
@@ -60,7 +60,7 @@
                     <div class="row">
 
                         <div class="col-md-12">
-                            <h3 style="font-family: FELIXTI !important;font-weight: 600;font-size: 25px;color: rgb(154, 41, 18); border-bottom: 1px solid rgb(154, 41, 18); width: max-content">Current/ Forthcoming Events</h3>
+                            <h3 style="font-family: FELIXTI !important;font-weight: 600;font-size: 25px;color: rgb(154, 41, 18); border-bottom: 1px solid rgb(154, 41, 18); width: max-content">Current/ Forthcoming Programmes</h3>
                             <table class="table table-striped">
                                 <thead>
                                 <tr style="background-color: #561304; color: white; font-size: 15px">
@@ -68,7 +68,8 @@
                                     <th>Image</th>
                                     <th>Title</th>
                                     <th class="des-control">Location</th>
-                                    <th>Date of Commencement</th>
+                                    <th class="des-control">Artists</th>
+                                    <th>Date</th>
                                 </tr>
                                 </thead>
 
@@ -93,14 +94,21 @@
 
                                     </td>
                                     <td>
-                                        {{$event->programme_title}}
+                                        <a href="{{route('view-programme',['id'=>$event->id])}}" style="color: #b60001">
+                                            {{$event->programme_title}}
+                                        </a>
                                     </td>
                                     <td>
                                         {{$event->programme_location}}
                                     </td>
                                     <td>
-                                        {{\Carbon\Carbon::parse($event->programme_date)->format('d/m/Y')}} at
-                                        {{\Carbon\Carbon::parse($event->programme_time)->format('h:i A')}}
+                                        {{$event->programArtists->count()}}
+                                    </td>
+                                    <td>
+                                        <div style="text-align: center">
+                                            {{\Carbon\Carbon::parse($event->programme_date)->format('d/m/Y')}} <br> at <br>
+                                            {{\Carbon\Carbon::parse($event->programme_time)->format('h:i A')}}
+                                        </div>
                                     </td>
 
 
