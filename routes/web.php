@@ -120,9 +120,7 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::get('/toggle-page-status/{page}', [\App\Http\Controllers\Backend\PageController::class, 'toggle'])->name('toggle-page-status');
 
     Route::get('/pages', function () {
-
         $pages = Page::all();
-
         return view('pages.show')->with('pages',$pages);
     })->name('show-page');
 
@@ -130,9 +128,10 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::get('/menu', function(){
         return view('backend.menu');
     })->name('create-menu');
+
+
     Route::get('/programme/{id}', function($id){
         $programme = \App\Models\Programme::find($id);
-
         return view('frontend.programDetail')->with('programme', $programme);
     })->name('view-programme');
 

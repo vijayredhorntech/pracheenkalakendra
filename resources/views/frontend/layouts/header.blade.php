@@ -24,7 +24,7 @@
 
 
     <nav class="navbar navbar-expand-lg navbar-light ">
-        <div class="container-fluid">
+        <div class="container-fluid" style="padding: 0px 5px">
 
             <button onclick="openNav()" class="navbar-toggler" id="openNavBtn" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"

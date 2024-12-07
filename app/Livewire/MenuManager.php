@@ -34,7 +34,7 @@ class MenuManager extends Component
     public function saveMenu()
     {
         $this->validate([
-            'title' => 'required|string|max:255',
+            'title' => 'nullable|string|max:255',
             'linkType' => 'required|in:manual,page',
             'link' => 'nullable|string|url',
             'pageId' => 'nullable|exists:pages,slug',

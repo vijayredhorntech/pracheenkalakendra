@@ -24,7 +24,7 @@ class CreateMenu extends Component
     public function saveMenuItem()
     {
         $this->validate([
-            'title' => 'required|string|max:255',
+            'title' => 'nullable|string|max:255',
             'link' => 'nullable|string|max:255',
             'parent_id' => 'nullable|exists:menus,id',
         ]);

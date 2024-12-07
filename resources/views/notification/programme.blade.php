@@ -1,7 +1,7 @@
 @extends('layouts.layout')
 @section('content')
 
-            <form class="mb-9 {{$formData['type']==='show'?'d-none':''}}" id="addNewProgramDiv" action="{{$formData['url']}}" method="{{$formData['method']}}" enctype="multipart/form-data">
+    <form class="mb-9 {{$formData['type']==='show'?'d-none':''}}" id="addNewProgramDiv" action="{{$formData['url']}}" method="{{$formData['method']}}" enctype="multipart/form-data">
         @csrf
         <div class="row g-3 flex-between-end mb-5">
             <div class="col-auto">

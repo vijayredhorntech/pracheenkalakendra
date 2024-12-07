@@ -91,6 +91,175 @@
 
 
     </style>
+
+    <style>
+
+        .navbar {
+            position: relative;
+        }
+
+        .nav-list {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            list-style: none;
+            margin: 0px auto;
+
+        }
+
+        .nav-item {
+            position: relative;
+        }
+        .nav-link {
+            color: #000;
+            font-weight: bold !important;
+            text-decoration: none;
+            padding: 0rem 1rem;
+            border-right:  1px solid #dadada;
+            font-size: 18px !important;
+            transition: background-color 0.3s;
+        }
+
+        /* First level dropdown */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: white;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            width: max-content;
+            padding: 0px 1rem;
+            max-width: 1000px;
+            z-index: 1000;
+        }
+
+        .nav-item:hover .dropdown-content {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .dropdown-column {
+            padding: 0px !important;
+            flex: 1;
+        }
+
+        .column-title {
+            font-weight: 900 !important;
+            font-size: 17px;
+            border-bottom: 1px solid #dadada;
+            padding: 0.5rem 1rem  !important;
+            background-color:  #b60001;
+            color: white;
+
+        }
+
+        /* Second level - Column items */
+        .submenu {
+            list-style: none;
+            margin-top: 0.5rem;
+        }
+
+        .submenu-item {
+            position: relative;
+            margin-bottom: 0.5rem;
+
+        }
+        .submenu-item .submenu-link {
+            color: #666;
+            text-decoration: none;
+            display: block;
+            transition: color 0.3s;
+            padding:0.5rem 0px;
+            font-size: 16px !important;
+            border-bottom:  1px solid #dadada;
+        }
+
+
+        /* Third level - Nested items */
+        .nested-submenu {
+            list-style: none;
+            margin-left: 0.5rem;
+            margin-top: 1rem;
+            display: none;
+        }
+        .submenu-item:hover .nested-submenu {
+            display: block;
+        }
+
+        .nested-submenu-item {
+            margin-bottom: 0.3rem;
+        }
+
+        .nested-submenu-item .submenu-link {
+            font-size: 15px !important;
+            color: black;
+            padding: 0.3rem 0;
+        }
+
+        /* Hover effects */
+        .nav-link:hover {
+            background-color: #444;
+        }
+
+        .submenu-link:hover {
+            color: #b60001;
+        }
+
+        /* Mobile styles */
+        @media (max-width: 992px) {
+            .dropdown-content {
+                max-width: 300px;
+            }
+            .nav-list {
+                flex-direction: column;
+                gap: 0;
+            }
+
+            .dropdown-content {
+                flex-direction: column;
+            }
+
+            .dropdown-column {
+                margin-bottom: 1rem;
+                padding: 0.5rem;
+                border-bottom: 1px solid #eee;
+            }
+
+            .dropdown-column:last-child {
+                border-bottom: none;
+            }
+
+            .nav-item:hover .dropdown-content {
+                display: none;
+            }
+
+            .nav-item.active .dropdown-content {
+                display: block;
+            }
+        }
+    </style>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            if (window.innerWidth <= 991) {
+                const navLinks = document.querySelectorAll('.nav-item > .nav-link');
+
+                navLinks.forEach(link => {
+                    link.addEventListener('click', function(e) {
+                        const parentItem = this.parentElement;
+                        const dropdownContent = parentItem.querySelector('.dropdown-content');
+
+                        if (dropdownContent) {
+                            e.preventDefault();
+                            parentItem.classList.toggle('active');
+                        }
+                    });
+                });
+            }
+        });
+    </script>
     @stack('styles')
 </head>
 <body>
