@@ -21,6 +21,7 @@ Route::get('/reset-password', function () {
 // auth middleware group here
 Route::middleware(['auth'])->prefix('admin')->group(function () {
 
+
     Route::get('/', function () {
         $upcomingProgrammes = \App\Models\Programme::where('programme_date', '>', now())
             ->orderBy('programme_date', 'asc')
@@ -29,6 +30,7 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
         $notifications = \App\Models\Notification::orderBy('notification_date', 'desc')->get();
         $members = \App\Models\Member::get()->all();
         $pages = \App\Models\Page::all();
+
         return view('dashboard')
             ->with('upcomingProgrammes', $upcomingProgrammes)
             ->with('notifications', $notifications)
@@ -70,6 +72,14 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
         Route::get('members-edit/{id}', [OtherpagesController::class, 'editMember'])->name('edit');
         Route::post('members-update/{id}', [OtherpagesController::class, 'updateMember'])->name('update');
         Route::get('members-delete/{id}', [OtherpagesController::class, 'deleteMember'])->name('delete');
+    });
+    Route::name('bannerStats.')->group(function () {
+        Route::get('banner-stats-show', [OtherpagesController::class, 'showbannerStats'])->name('show');
+        Route::post('banner-stats-create', [OtherpagesController::class, 'createbannerStats'])->name('create');
+        Route::get('banner-stats-edit/{id}', [OtherpagesController::class, 'editbannerStats'])->name('edit');
+        Route::post('banner-stats-update/{id}', [OtherpagesController::class, 'updatebannerStats'])->name('update');
+        Route::get('banner-stats-delete/{id}', [OtherpagesController::class, 'deletebannerStats'])->name('delete');
+        Route::get('banner-stats-change/{id}', [OtherpagesController::class, 'changeStatus'])->name('changeStatus');
     });
 
     Route::name('social-link.')->group(function () {

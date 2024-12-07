@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\MemberRequest;
+use App\Models\BannerStats;
 use App\Models\Contact;
 use App\Models\Member;
 use App\Models\SocialLink;
@@ -13,10 +14,10 @@ class OtherpagesController extends Controller
     // members function here
     public function showMember()
     {
-        $formData=[
-            'method'=>'POST',
-            'url'=>route('members.create'),
-            'type'=>'show'
+        $formData = [
+            'method' => 'POST',
+            'url' => route('members.create'),
+            'type' => 'show'
         ];
         $executiveMembers = Member::where('member_type', 'executive_board')->get();
         $generalMembers = Member::where('member_type', 'general_body')->get();
@@ -33,11 +34,12 @@ class OtherpagesController extends Controller
         $request->session()->flash('success', 'Member created successfully');
         return redirect()->route('members.show');
     }
-    public function editMember($id){
-        $formData=[
-            'method'=>'POST',
-            'url'=>route('members.update', $id),
-            'type'=>'edit'
+    public function editMember($id)
+    {
+        $formData = [
+            'method' => 'POST',
+            'url' => route('members.update', $id),
+            'type' => 'edit'
         ];
         $executiveMembers = Member::where('member_type', 'executive_board')->get();
         $generalMembers = Member::where('member_type', 'general_body')->get();
@@ -65,10 +67,10 @@ class OtherpagesController extends Controller
     // socialLink function here
     public function showSocialLinks()
     {
-        $formData=[
-            'method'=>'POST',
-            'url'=>route('social-link.create'),
-            'type'=>'show'
+        $formData = [
+            'method' => 'POST',
+            'url' => route('social-link.create'),
+            'type' => 'show'
         ];
         $socialLinks = SocialLink::all();
         return view('contact.social-links')->with('formData', $formData)->with('socialLinks', $socialLinks);
@@ -82,11 +84,12 @@ class OtherpagesController extends Controller
         $request->session()->flash('success', 'Social Link created successfully');
         return redirect()->route('social-link.show');
     }
-    public function editSocialLinks($id){
-        $formData=[
-            'method'=>'POST',
-            'url'=>route('social-link.update', $id),
-            'type'=>'edit'
+    public function editSocialLinks($id)
+    {
+        $formData = [
+            'method' => 'POST',
+            'url' => route('social-link.update', $id),
+            'type' => 'edit'
         ];
         $socialLinks = SocialLink::all();
         $socialLink = SocialLink::find($id);
@@ -111,10 +114,10 @@ class OtherpagesController extends Controller
     //contact page function here
     public function showContact()
     {
-        $formData=[
-            'method'=>'POST',
-            'url'=>route('contact.create'),
-            'type'=>'show'
+        $formData = [
+            'method' => 'POST',
+            'url' => route('contact.create'),
+            'type' => 'show'
         ];
         $allContacts = Contact::all();
         return view('contact.contact-page')->with('formData', $formData)->with('allContacts', $allContacts);
@@ -134,11 +137,12 @@ class OtherpagesController extends Controller
         $request->session()->flash('success', 'Contact created successfully');
         return redirect()->route('contact.show');
     }
-    public function editContact($id){
-        $formData=[
-            'method'=>'POST',
-            'url'=>route('contact.update', $id),
-            'type'=>'edit'
+    public function editContact($id)
+    {
+        $formData = [
+            'method' => 'POST',
+            'url' => route('contact.update', $id),
+            'type' => 'edit'
         ];
         $allContacts = Contact::all();
         $contact = Contact::find($id);
@@ -164,6 +168,80 @@ class OtherpagesController extends Controller
         $contact->delete();
         session()->flash('success', 'Contact Deleted successfully');
         return redirect()->route('contact.show');
+    }
+
+    //banner stats function here
+    public function showbannerStats()
+    {
+        $formData = [
+            'method' => 'POST',
+            'url' => route('bannerStats.create'),
+            'type' => 'show'
+        ];
+        $bannerStats = BannerStats::all();
+        return view('other.banner-stats')->with('formData', $formData)->with('bannerStats', $bannerStats);
+    }
+    public function createbannerStats(Request $request){
+        $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+        ]);
+        $bannerStats = new BannerStats();
+        $bannerStats->title = $request->title;
+        $bannerStats->description = $request->description;
+        $bannerStats->status = 0;
+        $bannerStats->save();
+        $request->session()->flash('success', 'Banner Stats created successfully');
+        return redirect()->route('bannerStats.show');
+    }
+    public function editbannerStats($id)
+    {
+        $formData = [
+            'method' => 'POST',
+            'url' => route('bannerStats.update', $id),
+            'type' => 'edit'
+        ];
+        $bannerStats = BannerStats::all();
+        $bannerStat = BannerStats::find($id);
+        return view('other.banner-stats')->with('formData', $formData)->with('bannerStat', $bannerStat)->with('bannerStats', $bannerStats);
+    }
+    public function updatebannerStats(Request $request, $id){
+        $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+        ]);
+        $bannerStats = BannerStats::find($id);
+        $bannerStats->title = $request->title;
+        $bannerStats->description = $request->description;
+        $bannerStats->save();
+        $request->session()->flash('success', 'Banner Stats updated successfully');
+        return redirect()->route('bannerStats.show');
+    }
+    public function deletebannerStats($id){
+        $activeBannerStats = BannerStats::where('status', 1)->get();
+        if (count($activeBannerStats) <=6) {
+            session()->flash('error', 'Minimum 6 banner stats should be active');
+            return redirect()->route('bannerStats.show');
+        } else {
+            $bannerStats = BannerStats::find($id);
+            $bannerStats->delete();
+            session()->flash('success', 'Banner Stats Deleted successfully');
+            return redirect()->route('bannerStats.show');
+        }
+    }
+    public function changeStatus($id)
+    {
+        $targetBanner = BannerStats::findOrFail($id);
+        $activeBannerStats = BannerStats::where('status', 1)->get();
+        if (count($activeBannerStats) > 6 && $targetBanner->status == 0) {
+            session()->flash('error', 'Maximum 6 banner stats can be active');
+            return redirect()->route('bannerStats.show');
+        }
+        $targetBanner->status = !$targetBanner->status;
+        $targetBanner->save();
+
+        session()->flash('success', 'Banner status changed successfully');
+        return redirect()->route('bannerStats.show');
     }
 
 }

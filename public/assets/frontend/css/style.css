@@ -51,7 +51,7 @@ a.nav-link.dropdown-toggle.show:hover::after {
     background: #fff;
     color: #B60001;
     outline: 1px solid #B60001;
-    
+
 }
 #audio-control {
     cursor: pointer;
@@ -270,7 +270,7 @@ span#next {
 
     width: 100%;
     height: 650px;
- 
+
     position: relative;
     display: block;
     box-shadow: 0px 0px 25px -5px rgba(0,0,0,0.2);
@@ -291,12 +291,12 @@ span#next {
     opacity: 0;
     transform: rotate(-10deg) scale(0.5,0.5);
 }
-.transition-effect {    
+.transition-effect {
     position:absolute;
     width: 150%;
     height: 200%;
     left:-25%;
-    bottom:-50%; 
+    bottom:-50%;
     transform: rotate(-135deg) translateY(-100%);
     animation: effect 1.8s ease;
     background-color: #2E3131;
@@ -308,14 +308,14 @@ span#next {
     width: 100%;
     height: 100%;
 }
-.transition-effect::before {  
+.transition-effect::before {
     bottom: 50%;
     height: 85%;
     margin-bottom: -15%;
     background-color: #F9BF3B;
     animation: effect-cildren 1.5s ease .2s forwards;
 }
-.transition-effect::after {  
+.transition-effect::after {
     bottom: 50%;
     height: 70%;
     margin-bottom: -10%;
@@ -379,8 +379,8 @@ span#next {
 }
 .swing:after{
     content: '';
-    position: absolute;  
-    width: 20px; height: 20px;  
+    position: absolute;
+    width: 20px; height: 20px;
     border: 1px solid #999;
     top: -10px; left: 50%;
     z-index: 0;
@@ -398,7 +398,7 @@ span#next {
     border-radius: 50% 50%;
     background: #000;
 }
- 
+
 @keyframes swing {
     0% { transform: rotate(3deg); }
     100% { transform: rotate(-3deg); }
@@ -465,7 +465,7 @@ ul.dropdown-menu.show {
 .contact-us-info-withmap h2 {
     color: #b60001;
     font-size: 20px;
-    
+
 }
 .contact-us-infoo {
     list-style: none;
@@ -662,16 +662,16 @@ section.cmt-row.about-section li img {
   transition: all 500ms ease-in-out;
   background-color: transparent;
 }
-.carousel-inner {
-  height: 650px;
-}
+/*.carousel-inner {*/
+/*  height: 650px;*/
+/*}*/
 .btn.btn_dtails:hover {
     color: #3B3D33;
     background: #fff;
     outline: 1px solid #3B3D33;
 }
 .cardItem:hover {
-  
+
   cursor: pointer;
   box-shadow: 0px 12px 30px 0px rgba(0, 0, 0, 0.2);
   transition: all 800ms cubic-bezier(0.19, 1, 0.22, 1);
@@ -2117,7 +2117,7 @@ color:#222;
     margin: 0;
     font-family: ELEPHNTI !important;
     font-weight: 600;
-    
+
 }
 .kendra_pic img {
     width: 100%;
@@ -2128,7 +2128,7 @@ color:#222;
     color: #6A6A6A;
     font-size: 19px;
     line-height: 29px;
-    
+
 }
 .about_us {
     padding-top: 40px;
@@ -2138,7 +2138,7 @@ color:#222;
     /*background-image: url(../img/bgs.png);*/
 
   /* Set a specific height */
-  min-height: auto; 
+  min-height: auto;
 
   /* Create the parallax scrolling effect */
   background-attachment: fixed;
@@ -2150,7 +2150,7 @@ color:#222;
      /*background-image: url(../img/bgs.png);*/
 
   /* Set a specific height */
-  min-height: auto; 
+  min-height: auto;
 
   /* Create the parallax scrolling effect */
   background-attachment: fixed;
@@ -2193,20 +2193,20 @@ color:#222;
 .programe_texts span {
     color: #B60001;
     font-weight: 400;
-    
+
     width: 100%;
     position: relative;
     top: 24px;
 }
 .programe_text h1 {
     font-size: 36px;
-  
+
     padding-bottom: 12px;
 }
 .programe_text span {
     color: #B60001;
     font-weight: 400;
-    
+
     width: 100%;
     position: relative;
     top: 24px;
@@ -2223,13 +2223,13 @@ color:#222;
 .programe_text p {
     margin: 0;
     color: #3B3D33;
-    
+
     font-weight: 400;
 }
 .programe_texts p {
     margin: 0;
     color: #3B3D33;
-   
+
     font-weight: 400;
 }
 .side_bg {
@@ -2256,7 +2256,7 @@ color:#222;
 }
 
 .categories {
- 
+
     padding: 50px;
 }
 .category_div {
@@ -2301,7 +2301,7 @@ color:#222;
     height: 56px;
     border-top-left-radius: 40px;
     border-bottom-right-radius: 40px;
-   
+
         box-shadow: 0px 0px 5px #000;
 }
 .parallax_1 {
@@ -2312,7 +2312,7 @@ color:#222;
     background-repeat: no-repeat;
 }
 .subscribes {
-   
+
     padding: 50px;
 }
 footer {
@@ -2359,7 +2359,7 @@ footer {
 }
 .footrss h3 {
     font-size: 15px;
-   
+
     margin: 0;
     font-weight: 400;
 }
@@ -2613,7 +2613,7 @@ section.cmt-row.about-section.bg-img1 h2 {
 
 
 @media screen and (max-width: 1200px){
-  
+
 .mages {
     width: 280px;
 }
@@ -2629,7 +2629,7 @@ section.cmt-row.about-section.bg-img1 h2 {
     text-align: left;
 }
 
- 
+
 }
 @media screen and (max-width: 992px){
   .smaller .logos {
@@ -2769,6 +2769,6 @@ section.cmt-row.about-section p {
 
 
 @media screen and (max-width: 575px){
-  
+
 
 }

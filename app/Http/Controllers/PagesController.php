@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BannerStats;
 use App\Models\Notification;
 use App\Models\Page;
 use App\Models\Programme;
@@ -16,9 +17,12 @@ class PagesController extends Controller
         // get all programs which are not expired
         $programmes = Programme::where('programme_date', '>=', date('Y-m-d'))->orderBy('programme_date', 'asc')->get();
 
+        $bannerStats = BannerStats::where('status', 1)->take(6)->get();
+
         return view('frontend.index')
             ->with('notifications', $notifications)
-            ->with('programmes', $programmes);
+            ->with('programmes', $programmes)
+            ->with('bannerStats', $bannerStats);
     }
 
     public function page($slug, $file=null)
@@ -46,15 +50,15 @@ class PagesController extends Controller
             $contacts = \App\Models\Contact::all();
             return view('frontend.contact')->with('contacts', $contacts);
         }
-        
+
         if ($file!=null)
         {
             $foldername = 'storage';
             $path = asset($foldername.'/'.$file);
             return view('frontend.pdf')->with('path',$path)->with('slug', $slug);
         }
-        
-        
+
+
 
         $page = Page::where('slug', $slug)->first();
         if($page == null) {

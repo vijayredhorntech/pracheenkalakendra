@@ -272,7 +272,7 @@
 
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
         <!-- Indicators -->
-        <ol class="carousel-indicators">
+        <ol class="carousel-indicators" style="bottom: 0px">
             <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
             <li data-target="#myCarousel" data-slide-to="1"></li>
             <li data-target="#myCarousel" data-slide-to="2"></li>
@@ -357,6 +357,21 @@
             <span class="glyphicon glyphicon-chevron-right"></span>
             <span class="sr-only">Next</span>
         </a>
+    </div>
+    <div class="row">
+        @forelse($bannerStats as $bannerStat)
+            <div class="col-lg-2 col-md-2 col-sm-4 col-6 px-2 py-3 d-flex justify-content-center flex-column align-items-center text-white"
+                 style="background-color: {{$loop->iteration%2 ===0?'#960102':'#7e0202'}}">
+                <span style="font-weight: 500; font-size: 17px">{{$bannerStat->title}}</span>
+                <p style="font-size: 13px">{{$bannerStat->description}}</p>
+            </div>
+        @empty
+            <div class="col-12 px-2 py-3 d-flex justify-content-center flex-column align-items-center text-white bg-primary">
+                <span style="font-weight: 500; font-size: 17px">No stats found</span>
+            </div>
+        @endforelse
+
+
     </div>
 
     <marquee scrollamount="8">
@@ -544,10 +559,10 @@
 
                         <div class="monthly-program">
                             <ul style="display:flex; gap:5px; justify-content:center">
-                              
-                                
+
+
                                 @forelse($programmes->take(2) as $programme)
- 
+
         @if($programme->programme_image)
             @php
                 // Get the file extension
@@ -562,7 +577,7 @@
                 <embed src="{{ asset('storage/' . $programme->programme_image) }}" type="application/pdf" width="100%" height="500px">
             @endif
         @endif
-   
+
 @empty
     <p>No programmes available.</p>
 @endforelse
