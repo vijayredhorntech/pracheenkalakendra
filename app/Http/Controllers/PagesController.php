@@ -6,6 +6,7 @@ use App\Models\BannerStats;
 use App\Models\Notification;
 use App\Models\Page;
 use App\Models\Programme;
+use App\Models\StudentAchievements;
 use Illuminate\Http\Request;
 
 class PagesController extends Controller
@@ -19,10 +20,13 @@ class PagesController extends Controller
 
         $bannerStats = BannerStats::where('status', 1)->take(6)->get();
 
+        $achievements = StudentAchievements::all();
+
         return view('frontend.index')
             ->with('notifications', $notifications)
             ->with('programmes', $programmes)
-            ->with('bannerStats', $bannerStats);
+            ->with('bannerStats', $bannerStats)
+            ->with('achievements', $achievements);
     }
 
     public function page($slug, $file=null)
@@ -72,9 +76,6 @@ class PagesController extends Controller
         return view('frontend.page')->with('page',$page);
     }
 
-
-
-
     public function announcements(){
         $announcements = Notification::orderBy('notification_date', 'asc')->get();
         return view('frontend.announcements')->with('announcements', $announcements);
@@ -82,6 +83,11 @@ class PagesController extends Controller
     public function events(){
         $events = Programme::orderBy('programme_date', 'asc')->get();
         return view('frontend.events')->with('events', $events);
+    }
+
+    public function studentAchievements(){
+        $achievements = StudentAchievements::all();
+        return view('frontend.studentAchievements')->with('achievements', $achievements);
     }
 
 

@@ -56,6 +56,18 @@
                             </div>
                         </a>
                     </div>
+                    <div class="nav-item-wrapper">
+                        <a aria-expanded="false" class="nav-link label-1 {{Route::currentRouteName()==='studentAchievements.show'?'active':''}}" data-bs-toggle="" href="{{route('studentAchievements.show')}}" role="button">
+                            <div class="d-flex align-items-center">
+                                <span class="nav-link-icon">
+                                    <i class="fa fa-person"></i>
+                                </span>
+                                <span class="nav-link-text-wrapper">
+                                    <span class="nav-link-text">Student Achievements</span>
+                                </span>
+                            </div>
+                        </a>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <p class="navbar-vertical-label">MENU</p>

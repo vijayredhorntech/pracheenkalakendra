@@ -11,6 +11,7 @@ use App\Models\Notification;
 use App\Models\ProgramArtist;
 use App\Models\ProgramImage;
 use App\Models\Programme;
+use App\Models\StudentAchievements;
 use Illuminate\Http\Request;
 
 class NotificationController extends Controller
@@ -74,8 +75,6 @@ class NotificationController extends Controller
             $request->session()->flash('success', 'Programme created successfully');
             return redirect()->route('programme.show');
     }
-
-
     public function editProgramme($id){
         $formData=[
             'method'=>'POST',
@@ -86,8 +85,6 @@ class NotificationController extends Controller
         $programmes = Programme::all();
         return view('notification.programme')->with('formData', $formData)->with('programmes', $programmes)->with('programme', $programme);
     }
-
-
     public function updateProgramme(ProgrammeRequest $request, $id){
         $programme = Programme::find($id);
         $programme->programme_title = $request->programme_title;
@@ -119,6 +116,18 @@ class NotificationController extends Controller
         $programme->delete();
         session()->flash('success', 'Programme Deleted successfully');
         return redirect()->route('programme.show');
+    }
+    public function programImageDelete($id){
+        $programImage = ProgramImage::find($id);
+        $programImage->delete();
+        session()->flash('success', 'Programme Image Deleted successfully');
+        return redirect()->back();
+    }
+    public function programArtistDelete($id){
+        $programArtist = ProgramArtist::find($id);
+        $programArtist->delete();
+        session()->flash('success', 'Programme Artist Deleted successfully');
+        return redirect()->back();
     }
 
  // notification function here
@@ -177,21 +186,6 @@ class NotificationController extends Controller
         return redirect()->route('notification.show');
     }
 
-
-    public function programImageDelete($id){
-        $programImage = ProgramImage::find($id);
-        $programImage->delete();
-        session()->flash('success', 'Programme Image Deleted successfully');
-        return redirect()->back();
-    }
-
-    public function programArtistDelete($id){
-        $programArtist = ProgramArtist::find($id);
-        $programArtist->delete();
-        session()->flash('success', 'Programme Artist Deleted successfully');
-        return redirect()->back();
-    }
-
  // downloads function here
     public function showDownloads()
     {
@@ -246,5 +240,62 @@ class NotificationController extends Controller
         $download->delete();
         session()->flash('success', 'Download Deleted successfully');
         return redirect()->route('downloads.show');
+    }
+
+    // studentAchievements function here
+    public function showStudentAchievements()
+    {
+        $formData=[
+            'method'=>'POST',
+            'url'=>route('studentAchievements.create'),
+            'type'=>'show'
+        ];
+        $studentAchievements = StudentAchievements::all();
+        return view('notification.studentAchievements')->with('formData', $formData)->with('achievements', $studentAchievements);
+    }
+    public function createStudentAchievements(Request $request){
+        $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+        $studentAchievements = new StudentAchievements();
+        $studentAchievements->title = $request->title;
+        $studentAchievements->description = $request->description;
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $studentAchievements->image = str_replace('public/', '', $image->store('public'));
+        }
+        $studentAchievements->save();
+        $request->session()->flash('success', 'Student Achievements created successfully');
+        return redirect()->route('studentAchievements.show');
+    }
+    public function editStudentAchievements($id){
+        $formData=[
+            'method'=>'POST',
+            'url'=>route('studentAchievements.update', $id),
+            'type'=>'edit'
+        ];
+        $studentAchievements = StudentAchievements::all();
+        $achievement = StudentAchievements::find($id);
+        return view('notification.studentAchievements')->with('formData', $formData)->with('achievement', $achievement)->with('achievements', $studentAchievements);
+    }
+    public function updateStudentAchievements(Request $request, $id){
+        $studentAchievements = StudentAchievements::find($id);
+        $studentAchievements->title = $request->title;
+        $studentAchievements->description = $request->description;
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $studentAchievements->image = str_replace('public/', '', $image->store('public'));
+        }
+        $studentAchievements->save();
+        $request->session()->flash('success', 'Student Achievements updated successfully');
+        return redirect()->route('studentAchievements.show');
+    }
+    public function deleteStudentAchievements($id){
+        $studentAchievements = StudentAchievements::find($id);
+        $studentAchievements->delete();
+        session()->flash('success', 'Student Achievements Deleted successfully');
+        return redirect()->route('studentAchievements.show');
     }
 }

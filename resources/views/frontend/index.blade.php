@@ -809,20 +809,20 @@
                 <div class="col-md-6" style="padding: 10px 10px">
                     <div class="newsCard">
                         <div class="cardHeader">
-                            <h2>Current/ Forthcoming Events</h2>
+                            <h2>Students Achievements</h2>
                         </div>
                         <div class="cardBody" style="max-height: 300px; overflow-y: hidden">
                             <marquee behavior="" direction="up"  style="max-height: 400px"  scrollamount="5">
-                               @forelse($programmes as $programme)
-                                <a href="{{route('events')}}" style="text-decoration: none">
+                               @forelse($achievements as $achievement)
+                                <a href="{{route('studentAchievements')}}" style="text-decoration: none">
                                     <div class="eventsSection">
                                         <div class="eventTitle">
                                             <p style="color: black">
-                                                {{$programme->programme_title}}
+                                                {{$achievement->title}}
                                             </p>
                                         </div>
                                         <div class="eventDate">
-                                            {{\Carbon\Carbon::parse($programme->programme_date)->format('d/m/Y')}}
+                                            {{ \Illuminate\Support\Str::words($achievement->description, 12, '...') }}
                                         </div>
                                     </div>
                                 </a>

@@ -65,6 +65,14 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
         Route::get('download-delete/{id}', [NotificationController::class, 'deleteDownloads'])->name('delete');
     });
 
+    Route::name('studentAchievements.')->group(function () {
+        Route::get('studentAchievements-show', [NotificationController::class, 'showStudentAchievements'])->name('show');
+        Route::post('studentAchievements-create', [NotificationController::class, 'createStudentAchievements'])->name('create');
+        Route::get('studentAchievements-edit/{id}', [NotificationController::class, 'editStudentAchievements'])->name('edit');
+        Route::post('studentAchievements-update/{id}', [NotificationController::class, 'updateStudentAchievements'])->name('update');
+        Route::get('studentAchievements-delete/{id}', [NotificationController::class, 'deleteStudentAchievements'])->name('delete');
+    });
+
 
     Route::name('members.')->group(function () {
         Route::get('members-show', [OtherpagesController::class, 'showMember'])->name('show');
@@ -164,6 +172,7 @@ Route::middleware('globalMenu')->group(function(){
     Route::get('/general_body', [PagesController::class, 'general_body'])->name('general_body');
     Route::get('/announcements', [PagesController::class, 'announcements'])->name('announcements');
     Route::get('/events', [PagesController::class, 'events'])->name('events');
+    Route::get('/student-achievements', [PagesController::class, 'studentAchievements'])->name('studentAchievements');
     Route::get('/downloads', [PagesController::class, 'downloads'])->name('downloads');
 });
 
