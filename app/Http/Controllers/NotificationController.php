@@ -113,6 +113,14 @@ class NotificationController extends Controller
     }
     public function deleteProgramme($id){
         $programme = Programme::find($id);
+        $programImages = ProgramImage::where('programme_id', $programme->id)->get();
+        foreach ($programImages as $programImage) {
+            $programImage->delete();
+        }
+        $programArtists = ProgramArtist::where('programme_id', $programme->id)->get();
+        foreach ($programArtists as $programArtist) {
+            $programArtist->delete();
+        }
         $programme->delete();
         session()->flash('success', 'Programme Deleted successfully');
         return redirect()->route('programme.show');

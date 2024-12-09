@@ -81,7 +81,7 @@ class PagesController extends Controller
         return view('frontend.announcements')->with('announcements', $announcements);
     }
     public function events(){
-        $events = Programme::orderBy('programme_date', 'asc')->get();
+        $events = Programme::orderBy('programme_date', 'desc')->get();
         return view('frontend.events')->with('events', $events);
     }
 

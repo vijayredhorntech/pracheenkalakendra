@@ -9,11 +9,14 @@ return new class extends Migration {
     {
         Schema::create('program_images', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('programme_id');
+            $table->foreignId('programme_id')
+                ->constrained('programmes') // Assumes the table name is `programmes`
+                ->onDelete('cascade'); // Delete images when the parent programme is deleted
             $table->string('programme_images');
             $table->timestamps();
         });
     }
+
 
     public function down(): void
     {

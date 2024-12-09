@@ -9,7 +9,8 @@ return new class extends Migration {
     {
         Schema::create('program_artists', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('programme_id');
+            $table->foreignId('programme_id')->constrained('programmes') // Assumes the table name is `programmes`
+            ->onDelete('cascade');;
             $table->string('name')->nullable();
             $table->longText('description')->nullable();
             $table->string('image')->nullable();
