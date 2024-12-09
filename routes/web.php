@@ -171,7 +171,7 @@ Route::middleware('globalMenu')->group(function(){
     Route::get('/executive_board', [PagesController::class, 'executive_board'])->name('executive_board');
     Route::get('/general_body', [PagesController::class, 'general_body'])->name('general_body');
     Route::get('/announcements', [PagesController::class, 'announcements'])->name('announcements');
-    Route::get('/events', [PagesController::class, 'events'])->name('events');
+    Route::get('/programme', [PagesController::class, 'events'])->name('events');
     Route::get('/student-achievements', [PagesController::class, 'studentAchievements'])->name('studentAchievements');
     Route::get('/downloads', [PagesController::class, 'downloads'])->name('downloads');
 });

@@ -19,7 +19,7 @@
 
                         <div class="page-title-heading">
 
-                            <h1 class="title">Current/ Forthcoming Programmes</h1>
+                            <h1 class="title">All Programme</h1>
 
                         </div><!-- /.page-title-captions -->
 
@@ -33,7 +33,7 @@
 
                             <span class="cmt-bread-sep"><i class="fa fa-angle-double-right" aria-hidden="true"></i></span>
 
-                            <span><span>Current/ Forthcoming Programme</span></span>
+                            <span><span>All Programme</span></span>
 
                         </div>
 
