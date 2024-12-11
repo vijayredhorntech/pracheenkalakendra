@@ -95,7 +95,7 @@
                    </div>
                </div>
                 <div class="col-lg-12 col-sm-12">
-                <div class="row">
+                    <div class="row" style="padding-bottom: 20px">
                     <div >
                         <h2>Images</h2>
                     </div>

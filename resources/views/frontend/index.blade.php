@@ -328,10 +328,6 @@
             padding-top: 180px;
         }
 
-        a.left.carousel-control, a.right.carousel-control {
-            display: ;
-        }
-
         .carousel-indicators {
             bottom: 50px;
         }
@@ -456,9 +452,11 @@
         <div class="statsCarousel">
             @forelse($bannerStats as $bannerStat)
                 <div class=" px-2 py-3 d-flex justify-content-center flex-column align-items-center text-white"
-                     style="background-color: {{$loop->iteration%2 ===0?'#960102':'#7e0202'}}">
+                     style="background-color: {{$loop->iteration%2 ===0?'#960102':'#7e0202'}}; height: 100%">
                     <span style="font-weight: 500; font-size: 17px">{{$bannerStat->title}}</span>
-                    <p style="font-size: 13px">{{$bannerStat->description}}</p>
+                    <p style="font-size: 13px; text-align: center">
+                        {{ \Illuminate\Support\Str::words($bannerStat->description, 5, '...') }}
+                    </p>
                 </div>
             @empty
                 <div class="col-12 px-2 py-3 d-flex justify-content-center flex-column align-items-center text-white bg-primary">
@@ -685,50 +683,50 @@
 
 
 
-    <div class="progame_section position-relative " style="padding: 0px">
-        <img src="{{asset('assets/frontend/img/bg.png')}}" class="side_bg d-none">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="aboutus">
-                        <h2> PROGRAMME</h2>
-                        <img src="{{asset('assets/frontend/img/dvde.png')}}">
+{{--    <div class="progame_section position-relative " style="padding: 0px">--}}
+{{--        <img src="{{asset('assets/frontend/img/bg.png')}}" class="side_bg d-none">--}}
+{{--        <div class="container">--}}
+{{--            <div class="row">--}}
+{{--                <div class="col-md-12">--}}
+{{--                    <div class="aboutus">--}}
+{{--                        <h2> PROGRAMME</h2>--}}
+{{--                        <img src="{{asset('assets/frontend/img/dvde.png')}}">--}}
 
-                    </div>
+{{--                    </div>--}}
 
-                    <div class="pro-event">
+{{--                    <div class="pro-event">--}}
 
-                        <div class="monthly-program">
-                            <ul style="display:flex; gap:5px; justify-content:center">
-
-
-                                @forelse($programmes->take(2) as $programme)
-
-        @if($programme->programme_image)
-            @php
-                // Get the file extension
-                $extension = pathinfo($programme->programme_image, PATHINFO_EXTENSION);
-            @endphp
-
-            @if(in_array(strtolower($extension), ['jpg', 'jpeg', 'png']))
-                 <li>
-                   <img src="{{ asset('storage/' . $programme->programme_image) }}" style="width:100%">
-                 </li>
-            @elseif(strtolower($extension) == 'pdf')
-                <embed src="{{ asset('storage/' . $programme->programme_image) }}" type="application/pdf" width="100%" height="500px">
-            @endif
-        @endif
-
-@empty
-    <p>No programmes available.</p>
-@endforelse
+{{--                        <div class="monthly-program">--}}
+{{--                            <ul style="display:flex; gap:5px; justify-content:center">--}}
 
 
+{{--                                @forelse($programmes->take(2) as $programme)--}}
 
-                            </ul>
-                        </div>
+{{--        @if($programme->programme_image)--}}
+{{--            @php--}}
+{{--                // Get the file extension--}}
+{{--                $extension = pathinfo($programme->programme_image, PATHINFO_EXTENSION);--}}
+{{--            @endphp--}}
 
-                    </div>
+{{--            @if(in_array(strtolower($extension), ['jpg', 'jpeg', 'png']))--}}
+{{--                 <li>--}}
+{{--                   <img src="{{ asset('storage/' . $programme->programme_image) }}" style="width:100%">--}}
+{{--                 </li>--}}
+{{--            @elseif(strtolower($extension) == 'pdf')--}}
+{{--                <embed src="{{ asset('storage/' . $programme->programme_image) }}" type="application/pdf" width="100%" height="500px">--}}
+{{--            @endif--}}
+{{--        @endif--}}
+
+{{--@empty--}}
+{{--    <p>No programmes available.</p>--}}
+{{--@endforelse--}}
+
+
+
+{{--                            </ul>--}}
+{{--                        </div>--}}
+
+{{--                    </div>--}}
 
 
 
@@ -762,12 +760,12 @@
 {{--                    @endforelse--}}
 
 
-                </div>
+{{--                </div>--}}
 
-            </div>
+{{--            </div>--}}
 
-        </div>
-    </div>
+{{--        </div>--}}
+{{--    </div>--}}
 
 
     <!--Announcement, Events, News Section starts here-->

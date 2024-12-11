@@ -18,6 +18,15 @@ Route::get('/forget-password', function () {
 Route::get('/reset-password', function () {
     return view('auth.reset-password');
 })->name('reset-password');
+
+Route::get('/programme/{id}', function($id){
+    $programme = \App\Models\Programme::find($id);
+    return view('frontend.programDetail')->with('programme', $programme);
+})->name('view-programme');
+
+Route::name('enquiry.')->group(function () {
+    Route::post('enquiry-create/{type}', [OtherpagesController::class, 'createEnquiry'])->name('create');
+});
 // auth middleware group here
 Route::middleware(['auth'])->prefix('admin')->group(function () {
 
@@ -108,7 +117,6 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
 
     Route::name('enquiry.')->group(function () {
         Route::get('enquiry-show/{type?}/{status?}', [OtherpagesController::class, 'showEnquiry'])->name('show');
-        Route::post('enquiry-create/{type}', [OtherpagesController::class, 'createEnquiry'])->name('create');
         Route::get('enquiry-status-change/{id}', [OtherpagesController::class, 'changeEnquiryStatus'])->name('change-enquiry-status');
         Route::post('enquiry-status-update/{id}', [OtherpagesController::class, 'updateEnquiryStatus'])->name('enquiry-status-update');
     });
@@ -153,13 +161,6 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::get('/menu', function(){
         return view('backend.menu');
     })->name('create-menu');
-
-
-    Route::get('/programme/{id}', function($id){
-        $programme = \App\Models\Programme::find($id);
-        return view('frontend.programDetail')->with('programme', $programme);
-    })->name('view-programme');
-
 
 
 });
