@@ -50,7 +50,7 @@
                                 <tr>
                                     <th class="sort white-space-nowrap align-middle pe-3" scope="col" data-sort="order" style="width:10%;">SR.NO</th>
                                     <th class="sort align-middle ps-8" scope="col" data-sort="customer" style="width:30%;">EMAIL</th>
-                                    <th class="sort align-middle ps-8" scope="col" data-sort="customer" style="width:30%;">SUBSCRIBET AT</th>
+                                    <th class="sort align-middle ps-8" scope="col" data-sort="customer" style="width:30%;">SUBSCRIBED AT</th>
                                 </tr>
                                 </thead>
                                 <tbody class="list" id="order-table-body">

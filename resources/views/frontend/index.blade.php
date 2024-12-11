@@ -782,15 +782,15 @@
                         </div>
                         <div class="cardBody">
                             <marquee behavior="" direction="up" style="max-height: 400px"  scrollamount="5">
-                                @forelse($notifications as $notifiation)
+                                @forelse($notifications as $notification)
                                     <a href="{{route('announcements')}}" style="text-decoration: none"
                                        class="announcementSection">
                                         <div class="announcementDate">
-                                            {{\Carbon\Carbon::parse($notifiation->notifiation_date)->format('d/m/Y')}}
+                                            {{\Carbon\Carbon::parse($notification->notification_date)->format('d/m/Y')}}
                                         </div>
                                         <div class="announcementTitle">
                                             <p style="color: black">
-                                                {{$notifiation->notification_title}}
+                                                {{$notification->notification_title}}
                                             </p>
                                         </div>
                                     </a>
